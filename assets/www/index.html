@@ -34,7 +34,7 @@
 //************************************************************************		
 function scanOrder() {
 
-        window.plugins.barcodeScanner.scan( function(result) {            
+        cordova.plugins.barcodeScanner.scan( function(result) {            
                 myOrder(result.text);
             }, function(error) {
                 alert("Scanning failed: " + error);
