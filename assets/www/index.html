@@ -32,14 +32,20 @@
 //************************************************************************                                            
 //*  Barcode Scanner                                                     *
 //************************************************************************		
-	function barcodeScan(){
-	  cordova.plugins.barcodeScanner.encode(BarcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
-            alert("encode success: " + success);
-          }, function(fail) {
-            alert("encoding failed: " + fail);
-          }
+function scanOrder() {
+
+        window.plugins.barcodeScanner.scan( function(result) {            
+                myOrder(result.text);
+            }, function(error) {
+                alert("Scanning failed: " + error);
+            }
         );
-     }   
+        
+} // end scanIt
+
+  function myOrder(orderid){
+   	alert(orderid);
+  } 
 //************************************************************************                                            
 //*  Start get Persons                                                   *
 //************************************************************************	
@@ -149,13 +155,13 @@
 			 </ul>
 			<br/> 
    <p><a href="#index" data-transition="slide" data-direction="reverse" data-role="button" data-theme="b">Back to Login</a></p>	
-   <p><a href=""onclick="barcodeScan()" data-role="button" data-theme="b">Back to Login</a></p>	
+   <p><a href="" onclick="scanOrder()" data-role="button" data-theme="b">Scanner</a></p>	
 		           
 		           
      </div>
        </div>
     	<div data-role="footer" data-position="fixed">
-		<h3>HR2013 Demo</h3>
+		<h3>SAPTechEd Demo</h3>
 		</div><!-- /footer --> 
 </div><!-- /page one -->
 
