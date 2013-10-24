@@ -22,10 +22,11 @@
 	<feature name="http://api.phonegap.com/1.0/network"/>
 	<feature name="http://api.phonegap.com/1.0/notification"/>
 	<feature name="http://api.phonegap.com/1.0/storage"/>
+	<feature name="http://api.phonegap.com/1.0/camera"/>
 
    <!-- <plugins><plugin name="GAPlugin" value="com.adobe.plugins.GAPlugin" /></plugins> -->
 
-   <gap:plugin name="com.phonegap.plugins.barcodescanner" version="1.0.2" />
+   <gap:plugin name="com.phonegap.plugins.barcodescanner" />
     
     <gap:plugin name="com.adobe.plugins.GAPlugin">
 	</gap:plugin>
