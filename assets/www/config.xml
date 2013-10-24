@@ -23,6 +23,7 @@
 	<feature name="http://api.phonegap.com/1.0/notification"/>
 	<feature name="http://api.phonegap.com/1.0/storage"/>
 	<feature name="http://api.phonegap.com/1.0/camera"/>
+	
 
    <!-- <plugins><plugin name="GAPlugin" value="com.adobe.plugins.GAPlugin" /></plugins> -->
 
