@@ -19,6 +19,9 @@
 
    // Cordova is ready
     function onDeviceReady(){
+    
+     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+    
 	}
 
 //************************************************************************
@@ -35,7 +38,9 @@
 //************************************************************************		
 function scanIt() {
 
-	window.plugins.barcodeScanner.scan( function(result) {       	
+	alert("called");
+
+	scanner.scan( function(result) {       	
         	getScanned(result.text);
     	}, function(error) {
         	alert("Scanning failed: " + error);

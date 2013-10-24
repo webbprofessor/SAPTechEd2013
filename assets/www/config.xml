@@ -28,7 +28,5 @@
 
    <gap:plugin name="com.phonegap.plugins.barcodescanner" />
     
-    <gap:plugin name="com.adobe.plugins.GAPlugin">
-	</gap:plugin>
     
  </widget>	
