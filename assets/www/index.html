@@ -6,7 +6,8 @@
    <meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 
-<script type="text/javascript" src="cordova-2.3.0.js"></script>
+<!--<script type="text/javascript" src="cordova-2.3.0.js"></script>-->
+<script type="text/javascript" src="js/barcodescanner.js"></script>
 <script type="text/javascript" src="js/base64.js"></script> 
 <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
@@ -16,17 +17,6 @@
    // Wait for Cordova to load
     document.addEventListener("deviceready", onDeviceReady, false);
 
-	// Cordova is ready
-    function onDeviceReady(){
-    
-    /* Phonegap BarcodeScanner Plugin */
-		try {
-		scanner = cordova.require("cordova/plugin/BarcodeScanner");
-		alert('scanner loaded');
-		}
-		catch(e) {
-		alert('scanner could not be loaded');
-		}
     
 	}
 
@@ -42,20 +32,19 @@
 //************************************************************************                                            
 //*  Barcode Scanner                                                     *
 //************************************************************************		
-function scanOrder() {
+function scanIt() {
 
- 
-        scanner.scan( function(result) {            
-                myOrder(result.text);
-            }, function(error) {
-                alert("Scanning failed: " + error);
-            }
-        );
-        
+	window.plugins.barcodeScanner.scan( function(result) {       	
+        	getScanned(result.text);
+    	}, function(error) {
+        	alert("Scanning failed: " + error);
+    	}
+	);
+	
 } // end scanIt
 
-  function myOrder(orderid){
-   	alert(orderid);
+  function getScanned(theResult){
+   	alert(theResult);
   } 
 //************************************************************************                                            
 //*  Start get Persons                                                   *
@@ -166,8 +155,8 @@ function scanOrder() {
 			 </ul>
 			<br/> 
    <p><a href="#index" data-transition="slide" data-direction="reverse" data-role="button" data-theme="b">Back to Login</a></p>	
-   <p><a href="#" onclick="scanOrder()" data-role="button" data-theme="b">Scanner</a></p>	
-   <p><a href="" onclick="function scanOrder()" data-role="button" data-theme="b">Scanner</a></p>		           
+   <p><a href="#" onclick="scanIt()" data-role="button" data-theme="b">Scanner</a></p>	
+      <a href="" onclick="scanIt()" data-transition="none" data-icon="star">scan</a>             
 		           
      </div>
        </div>
