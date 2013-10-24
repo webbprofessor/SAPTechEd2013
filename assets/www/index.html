@@ -34,7 +34,9 @@
 //************************************************************************		
 function scanOrder() {
 
-        cordova.plugins.barcodeScanner.scan( function(result) {            
+ var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+ 
+        scanner.scan( function(result) {            
                 myOrder(result.text);
             }, function(error) {
                 alert("Scanning failed: " + error);
@@ -155,8 +157,8 @@ function scanOrder() {
 			 </ul>
 			<br/> 
    <p><a href="#index" data-transition="slide" data-direction="reverse" data-role="button" data-theme="b">Back to Login</a></p>	
-   <p><a href="" onclick="scanOrder()" data-role="button" data-theme="b">Scanner</a></p>	
-		           
+   <p><a href="#" onclick="scanOrder()" data-role="button" data-theme="b">Scanner</a></p>	
+   <p><a href="" onclick="function scanOrder()" data-role="button" data-theme="b">Scanner</a></p>		           
 		           
      </div>
        </div>
