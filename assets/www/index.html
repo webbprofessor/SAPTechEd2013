@@ -45,7 +45,7 @@
 	        var auth = makeBasicAuth(uname, pword);
 			
 			var req = new XMLHttpRequest();	
-			req.open("GET", "http://192.168.1.247:8000/sap/opu/odata/sap/ZHC_HR2013_TEST_SRV/users?$format=json", true);
+			req.open("GET", "http://66.146.219.236:8000/sap/opu/odata/sap/ZHC_HR2013_TEST_SRV/users?$format=json", true);
 			req.setRequestHeader('Authorization', auth);
 			
 			req.onreadystatechange=function(){
