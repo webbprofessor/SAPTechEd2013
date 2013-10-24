@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html manifest="" lang="en-US">
+<head>
+   <title>PhoneGap / SAP Gateway</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   <meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+
+<script type="text/javascript" src="cordova-2.3.0.js"></script>
+<script type="text/javascript" src="js/base64.js"></script> 
+<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+		
+<script> 
+ 
+   // Wait for Cordova to load
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+	// Cordova is ready
+    function onDeviceReady(){
+	}
+
+//************************************************************************
+//*  Construct a Basic Authentication header for the HTML request to GW  *
+//************************************************************************  
+	function makeBasicAuth(uname, pword){
+	   var tok = uname + ':' + pword;
+	   var hash = Base64.encode(tok);
+	   return "Basic " + hash;
+	}
+	
+	
+//************************************************************************                                            *
+//*  Start get Persons                                                   *
+//************************************************************************	
+
+// Make a call to read the list of Flight-People from the ES Workplace
+	
+	function getPersons(uname, pword){
+
+    $.mobile.showPageLoadingMsg();
+
+
+// encode username and password in basica authentication
+	        var auth = makeBasicAuth(uname, pword);
+			
+			var req = new XMLHttpRequest();	
+			req.open("GET", "http://192.168.1.247:8000/sap/opu/odata/sap/ZHC_HR2013_TEST_SRV/users?$format=json", true);
+			req.setRequestHeader('Authorization', auth);
+			
+			req.onreadystatechange=function(){
+				if(req.readyState == 4 && (req.status==200)){
+					// get the type of response
+					var type = req.getResponseHeader("Content-Type");
+					if (type.indexOf("application/json") !== -1){
+									
+						var obj = JSON.parse(req.responseText);
+					  	$("#users").children().remove();
+						 
+						for (var i = 0; i < obj.d.results.length; i++ ){	
+						
+						$('#users')
+    		      	.append('<li><a href="" onclick="getProfile('+obj.d.results[i].Pernr+')">' + obj.d.results[i].Firstname + ' ' + obj.d.results[i].Lastname + ' ' + obj.d.results[i].Pernr + '<br/>' + obj.d.results[i].Stras + ' - ' + obj.d.results[i].Ort01 + '</a></li>');
+					
+					$("#users").listview('refresh');
+					
+						}	
+						
+					} else {
+					    console.log("Type is: " + type); 
+				    	document.getElementById('peopleElement').innerHTML = "<textarea id='txArea' cols='63' rows='60'>" + req.responseText + "</textarea>";
+				    }
+				} else if(req.readyState === 4 && (req.status=401)){
+				    alert("The authorization you provided does not work on ES Workplace");
+				}
+			}
+			
+			// send the request now
+			req.send();
+			
+			 $.mobile.hidePageLoadingMsg();	
+			 
+			  window.location = '#one';
+				
+		}  // end getSkilledPersons		
+		
+
+//************************************************************************
+//*  End get Persons                                                     *
+//************************************************************************	
+
+
+</script>
+     </head>
+        <body>
+ 
+<!--********************************************************************-->
+<!--*  Create jQuery Mobile Index Page                                  -->
+<!--********************************************************************-->  
+  <!-- Start of index page: #index -->
+<div data-role="page" id="index" data-theme="b" data-add-back-btn="true">
+
+	<div data-role="header" data-theme="b">
+		<h1>SAPTechEd Demo - SAP Login</h1>
+	</div><!-- /header -->
+
+		<div data-role="content" data-theme="b">	
+
+<p><label for="username" class="ui-hidden-accessible">User: </label>
+	<input type="text" name="sapUser" id="sapUser" placeholder="Username"></p>
+<p><label for="basic" class="ui-hidden-accessible">Password: </label>
+	<input type="password" name="sapPassword" id="sapPassword" placeholder="Password"></p>
+<input type="button" data-theme="b" value="Submit" onClick="getPersons(sapUser.value, sapPassword.value)" /><br/>
+
+<br/>
+		
+		</div><!-- /content -->
+			
+			<div data-role="footer" data-position="fixed">
+				<h3>HR2013 Demo</h3>
+			</div><!-- /footer -->
+	
+	</div><!-- /page index -->  
+ 
+<!--********************************************************************-->
+<!--*  Create jQuery Mobile Page one                                    -->
+<!--********************************************************************-->  
+      <div data-role="page" data-theme="b" data-add-back-btn="false" id="one">
+            <div data-role="header" data-theme="b">
+            <a href="#index" data-icon="arrow-l">back</a>
+                <h1>SAPTechEd Demo - Employees</h1>
+            </div>
+            
+            <div data-role="content" data-theme="b">
+  	        	<div class="content-primary">
+    
+  			 <ul data-role="listview" data-filter="true" data-filter-theme="c" data-theme="c" data-dividertheme="b" id="users">
+			 
+			 </ul>
+			<br/> 
+   <p><a href="#index" data-transition="slide" data-direction="reverse" data-role="button" data-theme="b">Back to Login</a></p>	
+		           
+     </div>
+       </div>
+    	<div data-role="footer" data-position="fixed">
+		<h3>HR2013 Demo</h3>
+		</div><!-- /footer --> 
+</div><!-- /page one -->
+
+    </body>
+</html>
+
