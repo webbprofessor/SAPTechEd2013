@@ -28,9 +28,19 @@
 	   var hash = Base64.encode(tok);
 	   return "Basic " + hash;
 	}
-	
-	
-//************************************************************************                                            *
+
+//************************************************************************                                            
+//*  Barcode Scanner                                                     *
+//************************************************************************		
+	function barcodeScan(){
+	  cordova.plugins.barcodeScanner.encode(BarcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
+            alert("encode success: " + success);
+          }, function(fail) {
+            alert("encoding failed: " + fail);
+          }
+        );
+     }   
+//************************************************************************                                            
 //*  Start get Persons                                                   *
 //************************************************************************	
 
@@ -139,6 +149,8 @@
 			 </ul>
 			<br/> 
    <p><a href="#index" data-transition="slide" data-direction="reverse" data-role="button" data-theme="b">Back to Login</a></p>	
+   <p><a href=""onclick="barcodeScan()" data-role="button" data-theme="b">Back to Login</a></p>	
+		           
 		           
      </div>
        </div>
